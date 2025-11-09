@@ -2,11 +2,11 @@
   "name": "surname-journey",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "echo \"no build\"",
     "vercel-build": "echo \"no build\""
   },
   "dependencies": {
-    "stripe": "^16.0.0"
+    "stripe": "16.0.0"
   }
+}
