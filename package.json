@@ -2,6 +2,7 @@
   "name": "surname-journey",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "echo \"no build\"",
     "vercel-build": "echo \"no build\""
