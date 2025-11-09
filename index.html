@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Italian Roots Journey</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Apple Color Emoji","Segoe UI Emoji";color:#1f2937;background:#fff;margin:0}
+    .container{max-width:960px;margin:0 auto;padding:1rem}
+    .card{border:1px solid #e5e7eb;border-radius:0.75rem;box-shadow:0 1px 2px rgba(0,0,0,0.04);padding:1rem;background:#fff}
+    .btn{background:#b45309;color:#fff;border:none;border-radius:0.5rem;padding:0.6rem 1rem;cursor:pointer}
+    .btn:hover{background:#92400e}
+    .btn-green{background:#16a34a}
+    .btn-green:hover{background:#15803d}
+    .input, select{width:100%;border:1px solid #d1d5db;border-radius:0.5rem;padding:0.5rem}
+    .label{font-weight:600;margin-bottom:0.25rem;display:block}
+    .hidden{display:none}
+    .hero{background:linear-gradient(to bottom,#fffbeb,#ffffff);padding:3rem 1rem;text-align:center}
+    .title{font-size:2rem;font-weight:800;margin-bottom:0.5rem}
+    .subtitle{font-size:1.1rem;margin-bottom:1.5rem}
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+  <section class="hero">
+    <div class="container">
+      <h1 class="title">Discover the Village of Your Surname</h1>
+      <p class="subtitle">In just a minute, find your ancestral home and book your journey back to Italy.</p>
+      <form id="quoteForm" class="card" onsubmit="return false;">
+        <div class="mb-4">
+          <label class="label">Surname or Village Name</label>
+          <input type="text" id="surname" class="input" placeholder="e.g. Rossi or Napoli" required>
+        </div>
+        <div class="mb-4">
+          <label class="label">Number of Travelers</label>
+          <input type="number" id="travelers" class="input" value="1" min="1">
+        </div>
+        <div class="mb-4">
+          <label class="label">Departure City in Italy</label>
+          <select id="city" class="input">
+            <option>Rome</option>
+            <option>Naples</option>
+            <option>Florence</option>
+            <option>Milan</option>
+            <option>Bari</option>
+            <option>Palermo</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="label">Add-ons</label>
+          <div class="space-y-2 text-left">
+            <label><input type="checkbox" class="mr-2" value="300"  name="addon" data-key="wine"> Local Wine Tasting (+$300)</label><br>
+            <label><input type="checkbox" class="mr-2" value="800"  name="addon" data-key="nonna"> Cooking with Nonna (+$800)</label><br>
+            <label><input type="checkbox" class="mr-2" value="400"  name="addon" data-key="photo"> Photo &amp; Video Package (+$400)</label><br>
+            <label><input type="checkbox" class="mr-2" value="250"  name="addon" data-key="honorary"> Honorary Citizenship Certificate (+$250)</label><br>
+            <label><input type="checkbox" class="mr-2" value="5000" name="addon" data-key="festival"> Welcome Home Festival (+$5000)</label>
+          </div>
+        </div>
+        <div class="flex gap-3 justify-center">
+          <button type="button" onclick="calculateQuote()" class="btn">Get Instant Quote</button>
+          <button type="button" onclick="startCheckout()" class="btn btn-green">Book Now</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section id="quoteResult" class="hidden bg-gray-50">
+    <div class="container">
+      <div class="card" style="text-align:center">
+        <h2 class="text-2xl font-semibold mb-4" style="font-size:1.5rem;font-weight:700">Your Personalized Journey</h2>
+        <p id="quoteDetails" class="text-lg mb-4" style="font-size:1.125rem"></p>
+        <p class="text-sm text-gray-500">Flexible dates • Full refund up to 30 days before your trip</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const PRICING = {
+      base: 1499,
+      extraPerson: 200,
+      addons: { wine: 300, nonna: 800, photo: 400, honorary: 250, festival: 5000 }
+    };
+
+    function calculateQuote() {
+      const travelers = parseInt(document.getElementById('travelers').value || '1', 10);
+      const addons = Array.from(document.querySelectorAll('input[name="addon"]:checked')).map(a => ({
+        key: a.dataset.key,
+        value: parseInt(a.value, 10)
+      }));
+      const addonsTotal = addons.reduce((sum, a) => sum + a.value, 0);
+      const total = PRICING.base + Math.max(0, travelers - 1) * PRICING.extraPerson + addonsTotal;
+      const surname = document.getElementById('surname').value || '—';
+      const city = document.getElementById('city').value;
+
+      const details = `Journey for <strong>${surname}</strong> family from <strong>${city}</strong><br>
+      Travelers: <strong>${travelers}</strong><br>
+      Add-ons: <strong>${addons.map(a => a.key).join(', ') || 'none'}</strong><br>
+      Total: <strong>$${total.toLocaleString()}</strong>`;
+
+      document.getElementById('quoteDetails').innerHTML = details;
+      document.getElementById('quoteResult').classList.remove('hidden');
+      window.scrollTo({ top: document.getElementById('quoteResult').offsetTop, behavior: 'smooth' });
+    }
+
+    async function startCheckout() {
+      const travelers = parseInt(document.getElementById('travelers').value || '1', 10);
+      const addons = Array.from(document.querySelectorAll('input[name="addon"]:checked')).map(a => a.dataset.key);
+      try {
+        const resp = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ travelers, addons })
+        });
+        const data = await resp.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert('Payment error: ' + (data.error || 'Try again'));
+        }
+      } catch (e) {
+        alert('Network error: ' + e.message);
+      }
+    }
+  </script>
+</body>
+</html>
