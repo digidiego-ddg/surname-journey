@@ -1,7 +1,11 @@
 {
   "name": "surname-journey",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "start": "node api/checkout.js"
+    "build": "echo \"no build\"",
+    "vercel-build": "echo \"no build\""
+  },
+  "dependencies": {
+    "stripe": "^16.0.0"
   }
-}
