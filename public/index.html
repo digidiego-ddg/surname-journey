@@ -19,44 +19,104 @@
     .hero{background:linear-gradient(to bottom,#fffbeb,#ffffff);padding:3rem 1rem;text-align:center}
     .title{font-size:2rem;font-weight:800;margin-bottom:0.5rem}
     .subtitle{font-size:1.1rem;margin-bottom:1.5rem}
+    .section-title{font-size:1.5rem;font-weight:700}
+    .nav-link{color:#374151}
+    .nav-link:hover{color:#111827}
+    .pill{display:inline-block;background:#F3F4F6;border:1px solid #E5E7EB;border-radius:999px;padding:.15rem .6rem;font-size:.8rem}
   </style>
 </head>
 <body class="bg-white text-gray-800">
-  <section class="hero">
+
+  <!-- NAVBAR -->
+  <nav class="border-b bg-white">
+    <div class="container flex items-center justify-between py-3">
+      <a href="#" class="flex items-center space-x-2">
+        <span class="pill">Surname Journey</span>
+        <span class="text-sm text-gray-500">by DDG</span>
+      </a>
+      <div class="flex items-center space-x-5 text-sm">
+        <a href="#how" class="nav-link">How it works</a>
+        <a href="#included" class="nav-link">What’s included</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#faq" class="nav-link">FAQs</a>
+        <a href="#book" class="btn btn-green px-3 py-2">Book now</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO / FORM -->
+  <section class="hero" id="book">
     <div class="container">
       <h1 class="title">Discover the Village of Your Surname</h1>
       <p class="subtitle">In just a minute, find your ancestral home and book your journey back to Italy.</p>
-      <form id="quoteForm" class="card" onsubmit="return false;">
-        <div class="mb-4">
-          <label class="label">Surname or Village Name</label>
-          <input type="text" id="surname" class="input" placeholder="e.g. Rossi or Napoli" required>
-        </div>
-        <div class="mb-4">
-          <label class="label">Number of Travelers</label>
-          <input type="number" id="travelers" class="input" value="1" min="1">
-        </div>
-        <div class="mb-4">
-          <label class="label">Departure City in Italy</label>
-          <select id="city" class="input">
-            <option>Rome</option>
-            <option>Naples</option>
-            <option>Florence</option>
-            <option>Milan</option>
-            <option>Bari</option>
-            <option>Palermo</option>
-          </select>
-        </div>
-        <div class="mb-4">
-          <label class="label">Add-ons</label>
-          <div class="space-y-2 text-left">
-            <label><input type="checkbox" class="mr-2" value="300"  name="addon" data-key="wine"> Local Wine Tasting (+$300)</label><br>
-            <label><input type="checkbox" class="mr-2" value="800"  name="addon" data-key="nonna"> Cooking with Nonna (+$800)</label><br>
-            <label><input type="checkbox" class="mr-2" value="400"  name="addon" data-key="photo"> Photo &amp; Video Package (+$400)</label><br>
-            <label><input type="checkbox" class="mr-2" value="250"  name="addon" data-key="honorary"> Honorary Citizenship Certificate (+$250)</label><br>
-            <label><input type="checkbox" class="mr-2" value="5000" name="addon" data-key="festival"> Welcome Home Festival (+$5000)</label>
+
+      <!-- Base rate ribbon -->
+      <div class="mx-auto mb-4 max-w-2xl">
+        <div class="card">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-sm text-gray-500">Base package</div>
+              <div class="text-2xl font-bold">$1,499</div>
+              <div class="text-sm text-gray-600">+ $200 per additional traveler</div>
+            </div>
+            <div class="text-sm text-gray-600">
+              <span class="pill">Flexible dates</span>
+              <span class="pill">Free reschedule</span>
+              <span class="pill">Full refund up to 30 days</span>
+            </div>
           </div>
         </div>
-        <div class="flex gap-3 justify-center">
+      </div>
+
+      <form id="quoteForm" class="card" onsubmit="return false;">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="mb-2">
+            <label class="label">Surname or Village Name</label>
+            <input type="text" id="surname" class="input" placeholder="e.g. Rossi or Napoli" required>
+          </div>
+          <div class="mb-2">
+            <label class="label">Number of Travelers</label>
+            <input type="number" id="travelers" class="input" value="1" min="1">
+          </div>
+          <div class="mb-2 md:col-span-2">
+            <label class="label">Departure City in Italy</label>
+            <select id="city" class="input">
+              <option>Rome</option>
+              <option>Naples</option>
+              <option>Florence</option>
+              <option>Milan</option>
+              <option>Bari</option>
+              <option>Palermo</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- WHAT'S INCLUDED PREVIEW -->
+        <div id="pricing" class="mt-4">
+          <div class="section-title mb-1">What’s included in the base rate</div>
+          <ul class="list-disc ml-5 text-sm text-gray-700">
+            <li>Research & matching of your surname to likely town(s) of origin</li>
+            <li>Curated 1-day itinerary in the selected area</li>
+            <li>Local cultural immersion & introductions</li>
+            <li>On-trip support via WhatsApp</li>
+          </ul>
+          <p class="text-xs text-gray-500 mt-2">* Travel, lodging, and meals are not included unless selected as add-ons.</p>
+        </div>
+
+        <!-- ADD-ONS -->
+        <div class="mt-6">
+          <div class="section-title mb-2">Optional add-ons</div>
+          <div class="grid md:grid-cols-2 gap-2 text-left">
+            <label class="flex items-start space-x-2"><input type="checkbox" class="mt-1" value="300"  name="addon" data-key="wine"><span>Local Wine Tasting <span class="text-gray-500">(+ $300)</span></span></label>
+            <label class="flex items-start space-x-2"><input type="checkbox" class="mt-1" value="800"  name="addon" data-key="nonna"><span>Cooking with Nonna <span class="text-gray-500">(+ $800)</span></span></label>
+            <label class="flex items-start space-x-2"><input type="checkbox" class="mt-1" value="400"  name="addon" data-key="photo"><span>Photo &amp; Video Package <span class="text-gray-500">(+ $400)</span></span></label>
+            <label class="flex items-start space-x-2"><input type="checkbox" class="mt-1" value="250"  name="addon" data-key="honorary"><span>Honorary Citizenship Certificate <span class="text-gray-500">(+ $250)</span></span></label>
+            <label class="flex items-start space-x-2 md:col-span-2"><input type="checkbox" class="mt-1" value="5000" name="addon" data-key="festival"><span>Welcome Home Festival <span class="text-gray-500">(+ $5000)</span></span></label>
+          </div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="flex gap-3 justify-center mt-5">
           <button type="button" onclick="calculateQuote()" class="btn">Get Instant Quote</button>
           <button type="button" onclick="startCheckout()" class="btn btn-green">Book Now</button>
         </div>
@@ -64,17 +124,69 @@
     </div>
   </section>
 
-  <section id="quoteResult" class="hidden bg-gray-50">
+  <!-- HOW IT WORKS -->
+  <section id="how" class="py-10">
     <div class="container">
-      <div class="card" style="text-align:center">
-        <h2 class="text-2xl font-semibold mb-4" style="font-size:1.5rem;font-weight:700">Your Personalized Journey</h2>
-        <p id="quoteDetails" class="text-lg mb-4" style="font-size:1.125rem"></p>
-        <p class="text-sm text-gray-500">Flexible dates • Full refund up to 30 days before your trip</p>
+      <div class="section-title mb-3">How it works</div>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="card">
+          <div class="font-semibold mb-1">1) Tell us your surname</div>
+          <p class="text-sm text-gray-600">We cross-reference historical and demographic data to pinpoint the most likely origin town(s).</p>
+        </div>
+        <div class="card">
+          <div class="font-semibold mb-1">2) We craft your itinerary</div>
+          <p class="text-sm text-gray-600">You get a curated 1-day route with cultural highlights and optional experiences.</p>
+        </div>
+        <div class="card">
+          <div class="font-semibold mb-1">3) Travel & celebrate</div>
+          <p class="text-sm text-gray-600">Meet locals, explore your roots, and make memories. Add extras anytime.</p>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- QUOTE RESULT -->
+  <section id="quoteResult" class="hidden bg-gray-50">
+    <div class="container">
+      <div class="card" style="text-align:center">
+        <h2 class="text-2xl font-semibold mb-4" style="font-size:1.5rem;font-weight:700">Your Personalized Journey</h2>
+        <p id="quoteDetails" class="text-lg mb-2" style="font-size:1.125rem"></p>
+        <p id="quoteBreakdown" class="text-sm text-gray-600"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-10">
+    <div class="container">
+      <div class="section-title mb-3">FAQs</div>
+      <div class="space-y-3">
+        <div class="card">
+          <div class="font-semibold">Is the base fee per person?</div>
+          <p class="text-sm text-gray-600">The base package ($1,499) covers the experience for the first traveler. Each additional traveler is +$200.</p>
+        </div>
+        <div class="card">
+          <div class="font-semibold">Can I reschedule or cancel?</div>
+          <p class="text-sm text-gray-600">Yes—free reschedule, and a full refund up to 30 days before your trip.</p>
+        </div>
+        <div class="card">
+          <div class="font-semibold">What if I don’t know the exact town?</div>
+          <p class="text-sm text-gray-600">No problem. We start from your surname and region clues to narrow down the right area.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 border-t">
+    <div class="container text-sm text-gray-500">
+      © <span id="year"></span> Surname Journey — DDG. All rights reserved.
+    </div>
+  </footer>
+
   <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Keep pricing aligned with backend (api/checkout.js)
     const PRICING = {
       base: 1499,
       extraPerson: 200,
@@ -83,23 +195,29 @@
 
     function calculateQuote() {
       const travelers = parseInt(document.getElementById('travelers').value || '1', 10);
-      const addons = Array.from(document.querySelectorAll('input[name="addon"]:checked')).map(a => ({
-        key: a.dataset.key,
-        value: parseInt(a.value, 10)
-      }));
-      const addonsTotal = addons.reduce((sum, a) => sum + a.value, 0);
+      const addonsChecked = Array.from(document.querySelectorAll('input[name="addon"]:checked'))
+        .map(a => ({ key: a.dataset.key, value: parseInt(a.value, 10) }));
+      const addonsTotal = addonsChecked.reduce((sum, a) => sum + a.value, 0);
       const total = PRICING.base + Math.max(0, travelers - 1) * PRICING.extraPerson + addonsTotal;
-      const surname = document.getElementById('surname').value || '—';
+
+      const surname = (document.getElementById('surname').value || '—').trim();
       const city = document.getElementById('city').value;
 
       const details = `Journey for <strong>${surname}</strong> family from <strong>${city}</strong><br>
       Travelers: <strong>${travelers}</strong><br>
-      Add-ons: <strong>${addons.map(a => a.key).join(', ') || 'none'}</strong><br>
-      Total: <strong>$${total.toLocaleString()}</strong>`;
+      Add-ons: <strong>${addonsChecked.map(a => a.key).join(', ') || 'none'}</strong><br>
+      <span class="text-gray-700">Total:</span> <strong>$${total.toLocaleString()}</strong>`;
+
+      const breakdown = `
+        <span class="text-gray-700">Base:</span> $${PRICING.base.toLocaleString()} &nbsp;•&nbsp;
+        <span class="text-gray-700">Extra travelers:</span> $${(Math.max(0, travelers - 1) * PRICING.extraPerson).toLocaleString()} &nbsp;•&nbsp;
+        <span class="text-gray-700">Add-ons:</span> $${addonsTotal.toLocaleString()}
+      `;
 
       document.getElementById('quoteDetails').innerHTML = details;
+      document.getElementById('quoteBreakdown').innerHTML = breakdown;
       document.getElementById('quoteResult').classList.remove('hidden');
-      window.scrollTo({ top: document.getElementById('quoteResult').offsetTop, behavior: 'smooth' });
+      window.scrollTo({ top: document.getElementById('quoteResult').offsetTop - 20, behavior: 'smooth' });
     }
 
     async function startCheckout() {
